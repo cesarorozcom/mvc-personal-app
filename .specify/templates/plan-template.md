@@ -40,7 +40,12 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] Spec source exists and follows official `spec-template.md` structure.
+- [ ] Architecture decision is Django MVC in a monorepo layout.
+- [ ] Technical stack is Django + PostgreSQL (Django ORM) + Django Templates + HTMX.
+- [ ] Task generation is blocked until spec status is `approved`.
+- [ ] Test strategy defines evidence for minimum 80% coverage before merge.
+- [ ] Deployment path is Heroku Container with Dyno Basic and Essential-0 Postgres.
 
 ## Project Structure
 
@@ -65,39 +70,26 @@ specs/[###-feature]/
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
+# Monorepo Django MVC (default and required)
+apps/
+├── web/
+│   ├── views/
+│   ├── templates/
+│   └── urls.py
+├── domain/
 │   ├── models/
 │   ├── services/
-│   └── api/
-└── tests/
+│   └── admin.py
+└── shared/
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
+config/
+├── settings/
+└── urls.py
 
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+tests/
+├── unit/
+├── integration/
+└── e2e/
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real

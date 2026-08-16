@@ -1,131 +1,90 @@
-# Feature Specification: [FEATURE NAME]
+# Spec: <Nombre del módulo o feature>
 
-**Feature Branch**: `[###-feature-name]`
+## Metadata
 
-**Created**: [DATE]
+| Campo | Valor |
+|------|-------|
+| Author| <Tu nombre>|
+| Date | <YYYY-MM-DD>|
+| Status| draft / approved / implemented|
 
-**Status**: Draft
+### Alineacion Constitucional (obligatoria)
 
-**Input**: User description: "$ARGUMENTS"
-
-## User Scenarios & Testing *(mandatory)*
-
-<!--
-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
-
-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
-  Think of each story as a standalone slice of functionality that can be:
-  - Developed independently
-  - Tested independently
-  - Deployed independently
-  - Demonstrated to users independently
--->
-
-### User Story 1 - [Brief Title] (Priority: P1)
-
-[Describe this user journey in plain language]
-
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+- **Arquitectura**: MVC en monorepo
+- **Stack backend**: Django
+- **Base de datos y ORM**: PostgreSQL + Django ORM
+- **Frontend**: Django Templates + HTMX
+- **Despliegue objetivo**: Heroku Container + Dyno Basic + Essential-0 Heroku Postgres
+- **Cobertura minima de pruebas**: >= 80%
 
 ---
 
-### User Story 2 - [Brief Title] (Priority: P2)
+## Contexto y motivación
 
-[Describe this user journey in plain language]
-
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+<Por qué necesitas este módulo. Qué problemo resuelve. Qué pasaría si no construyeramos.>
 
 ---
 
-### User Story 3 - [Brief Title] (Priority: P3)
+## Requerimientos Funcionales
 
-[Describe this user journey in plain language]
-
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. <El sistema debe ...>
+2. <El sistema debe ...>
+3. <Agrega los que correspondan.>
 
 ---
 
-[Add more user stories as needed, each with an assigned priority]
+## Requerimientos No Funcionales
 
-### Edge Cases
+- **Performance** <tiempo de respuesta esperados, volumen de datos. etc.>
+- **Seguridad** <manejo de entradas, secretos, autenticación si aplica.>
+- **Mantenibilidad** <convenciones de código, estructura esperada.>
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right edge cases.
--->
+---
 
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+## Casos de uso / escenarios
 
-## Requirements *(mandatory)*
+### Escenario 1: <Nombre del escenario>
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
+- **Actor:** <Quién inicia la acción>
+- **Precondiciones:** <Qué debe cumplirse antes de ejecutar el escenario>
+- **Flujo principal:** <Qué pasos se ejecutan en el escenario>
+- **Flujo alternativo:** <Qué pasos se ejecutan si algo falla o no se cumple>
+- **Postcondiciones:** <Qué debe cumplirse al finalizar el escenario>
 
-### Functional Requirements
+---
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+### Escenario 2: <Nombre del escenario>
 
-*Example of marking unclear requirements:*
+- **Actor:** <Quién inicia la acción>
+- **Precondiciones:** <Qué debe cumplirse antes de ejecutar el escenario>
+- **Flujo principal:** <Qué pasos se ejecutan en el escenario>
+- **Flujo alternativo:** <Qué pasos se ejecutan si algo falla o no se cumple>
+- **Postcondiciones:** <Qué debe cumplirse al finalizar el escenario>
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+---
 
-### Key Entities *(include if feature involves data)*
+## Criterios de aceptación
+- [ ] <Criterio 1>
+- [ ] <Criterio 2>
+- [ ] <Agrega los que correspondan.>
 
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+---
 
-## Success Criteria *(mandatory)*
+## Alternativas consideradas
 
-<!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
--->
+| Alternativa | Pros | Contras |
+|--------|------|------|
+| <Alternativa A> | <Por qué es atractiva> | <Por qué fue descartada> |
+| <Alternativa B> | <Por qué es atractiva> | <Por qué fue descartada> |
 
-### Measurable Outcomes
+---
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+## Decisiones Tomadas
+<Describe las decisiones tomadas y por qué se tomaron. decisiones claves: librerías elegidas, arquitectura, patrones de diseño, etc.>
 
-## Assumptions
+---
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right assumptions based on reasonable defaults
-  chosen when the feature description did not specify certain details.
--->
 
-- [Assumption about target users, e.g., "Users have stable internet connectivity"]
-- [Assumption about scope boundaries, e.g., "Mobile support is out of scope for v1"]
-- [Assumption about data/environment, e.g., "Existing authentication system will be reused"]
-- [Dependency on existing system/service, e.g., "Requires access to the existing user profile API"]
+## Referencias
+
+- <Documentación, issues, conversaciones o specs relacionadas>

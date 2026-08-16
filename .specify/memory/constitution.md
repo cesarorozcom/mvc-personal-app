@@ -1,50 +1,101 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+- Version change: N/A -> 1.0.0
+- Modified principles:
+	- Principle 1 -> I. Arquitectura MVC y Monorepo (NO NEGOCIABLE)
+	- Principle 2 -> II. Stack Tecnologico Obligatorio
+	- Principle 3 -> III. Especificacion Antes de Tareas y Trazabilidad
+	- Principle 4 -> IV. Calidad de Pruebas y Cobertura Minima
+	- Principle 5 -> V. Despliegue Estandar en Heroku y Operabilidad
+- Added sections:
+	- Additional Constraints
+	- Development Workflow
+- Removed sections:
+	- None
+- Templates requiring updates:
+	- ✅ .specify/templates/plan-template.md
+	- ✅ .specify/templates/spec-template.md
+	- ✅ .specify/templates/tasks-template.md
+	- ✅ templates/spec-template.md
+	- ⚠ pending .specify/templates/commands/*.md (directory does not exist in this repository)
+	- ✅ .github/copilot-instructions.md (reviewed, no stale references found)
+- Deferred TODOs:
+	- TODO(RATIFICATION_DATE): Confirm original ratification date of the constitution.
+-->
+
+# MVC Finance App Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Arquitectura MVC y Monorepo (NO NEGOCIABLE)
+Todas las implementaciones MUST seguir arquitectura MVC de Django y vivir en un
+monorepo unico. Cada cambio funcional MUST mapearse a capas de modelo, vista
+y template segun corresponda, evitando logica de negocio embebida en templates.
+Rationale: mantener separacion de responsabilidades, escalabilidad del dominio
+y consistencia en colaboracion.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Stack Tecnologico Obligatorio
+El backend MUST usar Django; persistencia MUST usar PostgreSQL a traves de
+Django ORM; frontend MUST usar Django Templates + HTMX. No se permite introducir
+frameworks alternativos de backend, ORMs paralelos o SPAs desacopladas sin una
+enmienda explicita de la constitucion. Rationale: reducir complejidad operativa
+y maximizar productividad con un stack coherente.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Especificacion Antes de Tareas y Trazabilidad
+Ninguna tarea de implementacion MUST crearse sin una especificacion previa que
+respete la plantilla oficial `spec-template.md`. Toda tarea MUST enlazar su
+spec fuente y MUST registrar un estado de implementacion verificable
+(draft/approved/implemented para specs; pending/in-progress/done para tareas).
+Rationale: asegurar trazabilidad de decisiones, alcance controlado y auditoria.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Calidad de Pruebas y Cobertura Minima
+Toda entrega MUST incluir pruebas unitarias e integracion suficientes para
+alcanzar al menos 80% de cobertura total del codigo modificado y del modulo
+impactado. Un cambio NO cumple Definition of Done si no demuestra cobertura en
+CI o evidencia equivalente reproducible. Rationale: reducir regresiones en un
+sistema financiero y sostener evolucion segura.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Despliegue Estandar en Heroku y Operabilidad
+El despliegue productivo MUST realizarse en Heroku Container con Dyno Basic y
+Heroku Postgres Essential-0. Configuracion, migraciones y secretos MUST estar
+externalizados por variables de entorno y procedimientos reproducibles.
+Rationale: mantener un camino de despliegue unico, simple y operable.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Additional Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Django apps MUST mantener responsabilidades claras: modelos en `models.py` o
+	`models/`, casos de uso en servicios y vistas delgadas.
+- Toda consulta compleja MUST implementarse con Django ORM de forma legible,
+	testeada y sin SQL crudo salvo justificacion documentada en ADR.
+- HTMX MUST usarse para interactividad incremental y degradacion progresiva; los
+	templates MUST permanecer accesibles sin JavaScript critico.
+- Cambios de infraestructura MUST documentarse en ADR antes de implementacion.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+1. Especificar: crear `spec.md` usando exactamente la plantilla oficial.
+2. Planificar: producir `plan.md` con chequeo de constitucion aprobado.
+3. Generar el ADR (Architecture Decision Record) para decisiones de stack, arquitectura o
+   despliegue según `adr-template.md`.
+4. Tareas: generar `tasks.md` solo desde una spec aprobada.
+5. Implementar: ejecutar tareas actualizando estado de cada una.
+6. Validar: ejecutar pruebas y verificar cobertura >= 80% antes de merge.
+7. Desplegar: aplicar migraciones y publicar en Heroku con checklist operativo.
+
+Code review MUST verificar cumplimiento de los principios I-V, evidencia de
+pruebas y trazabilidad entre spec, plan, tareas y commits.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Esta constitucion prevalece sobre practicas informales del repositorio.
+Enmiendas MUST incluir: propuesta escrita, impacto en plantillas y plan de
+migracion si aplica. El versionado sigue SemVer de gobernanza:
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- MAJOR: eliminacion o redefinicion incompatible de principios.
+- MINOR: adicion de principios/secciones o expansion normativa material.
+- PATCH: aclaraciones editoriales sin cambio de obligacion.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Toda PR MUST incluir una seccion de cumplimiento constitucional y evidencias
+objetivas (tests, cobertura, enlaces a spec/plan/tasks). Revision de cumplimiento
+MUST ocurrir al menos en cada merge a rama principal.
+
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Confirm original adoption date. | **Last Amended**: 2026-08-15

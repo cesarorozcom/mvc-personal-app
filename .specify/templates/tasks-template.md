@@ -9,9 +9,14 @@ description: "Task list template for feature implementation"
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Tests are REQUIRED. Every implementation plan MUST include tasks to
+reach and verify at least 80% coverage in the affected module(s).
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+
+**Traceability Rule**: Do not create implementation tasks without an approved
+specification. Every task list MUST reference its source spec and each task MUST
+track implementation status (`pending`, `in-progress`, `done`).
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -44,6 +49,16 @@ description: "Task list template for feature implementation"
   DO NOT keep these sample tasks in the generated tasks.md file.
   ============================================================================
 -->
+
+## Phase 0: Specification Gate (Blocking)
+
+**Purpose**: Ensure implementation starts only from a valid approved spec
+
+- [ ] T000 Validate spec exists at `/specs/[###-feature-name]/spec.md`
+- [ ] T000a Confirm spec status is `approved`
+- [ ] T000b Link spec in task header and set initial status for all tasks
+
+---
 
 ## Phase 1: Setup (Shared Infrastructure)
 
@@ -80,7 +95,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1 (REQUIRED) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
@@ -106,7 +121,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 2 (REQUIRED) ⚠️
 
 - [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
@@ -128,7 +143,7 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 3 (REQUIRED) ⚠️
 
 - [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
 - [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
@@ -154,7 +169,8 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Documentation updates in docs/
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
+- [ ] TXXX [P] Additional unit tests in tests/unit/
+- [ ] TXXX Generate and archive coverage report (>=80%)
 - [ ] TXXX Security hardening
 - [ ] TXXX Run quickstart.md validation
 
@@ -164,7 +180,8 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: No dependencies - can start immediately
+- **Specification Gate (Phase 0)**: No dependencies - MUST complete first
+- **Setup (Phase 1)**: Depends on Specification Gate completion
 - **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
 - **User Stories (Phase 3+)**: All depend on Foundational phase completion
   - User stories can then proceed in parallel (if staffed)
@@ -179,7 +196,7 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Within Each User Story
 
-- Tests (if included) MUST be written and FAIL before implementation
+- Tests MUST be written and FAIL before implementation
 - Models before services
 - Services before endpoints
 - Core implementation before integration
@@ -218,7 +235,8 @@ Task: "Create [Entity2] model in src/models/[entity2].py"
 2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
 3. Complete Phase 3: User Story 1
 4. **STOP and VALIDATE**: Test User Story 1 independently
-5. Deploy/demo if ready
+5. Verify coverage threshold (>=80%)
+6. Deploy/demo if ready
 
 ### Incremental Delivery
 
@@ -232,7 +250,7 @@ Task: "Create [Entity2] model in src/models/[entity2].py"
 
 With multiple developers:
 
-1. Team completes Setup + Foundational together
+1. Team completes Specification Gate + Setup + Foundational together
 2. Once Foundational is done:
    - Developer A: User Story 1
    - Developer B: User Story 2
@@ -246,7 +264,7 @@ With multiple developers:
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
 - Each user story should be independently completable and testable
-- Verify tests fail before implementing
+- Verify tests fail before implementing and coverage reaches >=80%
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence

@@ -8,6 +8,15 @@
 | Date | <YYYY-MM-DD>|
 | Status| draft / approved / implemented|
 
+### Alineacion Constitucional (obligatoria)
+
+- **Arquitectura**: MVC en monorepo
+- **Stack backend**: Django
+- **Base de datos y ORM**: PostgreSQL + Django ORM
+- **Frontend**: Django Templates + HTMX
+- **Despliegue objetivo**: Heroku Container + Dyno Basic + Essential-0 Heroku Postgres
+- **Cobertura minima de pruebas**: >= 80%
+
 ---
 
 ## Contexto y motivación
