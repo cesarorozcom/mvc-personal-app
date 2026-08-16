@@ -1,0 +1,229 @@
+openapi: 3.0.3
+info:
+  title: Movement Image Import API
+  version: 0.1.0
+  description: Contract for OCR-assisted movement import and review flow.
+servers:
+  - url: /api
+security:
+  - cookieAuth: []
+paths:
+  /movement-imports:
+    post:
+      summary: Create a movement import from image/camera payload
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - account_id
+                - image
+                - source_type
+              properties:
+                account_id:
+                  type: string
+                  format: uuid
+                source_type:
+                  type: string
+                  enum: [camera, gallery, upload]
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '202':
+          description: Import created and queued for OCR processing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementImport'
+        '400':
+          description: Validation error
+  /movement-imports/{import_id}:
+    get:
+      summary: Get import status and proposals for review
+      parameters:
+        - in: path
+          name: import_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Import found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementImportDetail'
+        '404':
+          description: Import not found
+  /movement-imports/{import_id}/proposals/{proposal_id}:
+    patch:
+      summary: Edit one proposed movement during review
+      parameters:
+        - in: path
+          name: import_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: proposal_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposalPatchRequest'
+      responses:
+        '200':
+          description: Proposal updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportedMovementProposal'
+        '409':
+          description: Proposal blocked as duplicate
+  /movement-imports/{import_id}/confirm:
+    post:
+      summary: Confirm selected proposals and persist movements
+      parameters:
+        - in: path
+          name: import_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - confirmed_proposal_ids
+              properties:
+                confirmed_proposal_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+      responses:
+        '200':
+          description: Confirmation completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  import_id:
+                    type: string
+                    format: uuid
+                  saved_count:
+                    type: integer
+                  blocked_count:
+                    type: integer
+                  discarded_count:
+                    type: integer
+        '422':
+          description: One or more proposals failed validation
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+  schemas:
+    MovementImport:
+      type: object
+      required: [id, account_id, source_type, status, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        account_id:
+          type: string
+          format: uuid
+        source_type:
+          type: string
+          enum: [camera, gallery, upload]
+        status:
+          type: string
+          enum: [queued, processing, review_required, failed, completed]
+        created_at:
+          type: string
+          format: date-time
+    MovementImportDetail:
+      allOf:
+        - $ref: '#/components/schemas/MovementImport'
+        - type: object
+          properties:
+            proposals:
+              type: array
+              items:
+                $ref: '#/components/schemas/ImportedMovementProposal'
+    ImportedMovementProposal:
+      type: object
+      required: [id, requires_review, is_duplicate_blocked, is_discarded, is_confirmed]
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          nullable: true
+        confidence_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          nullable: true
+        requires_review:
+          type: boolean
+        is_duplicate_blocked:
+          type: boolean
+        duplicate_reason:
+          type: string
+          nullable: true
+        is_discarded:
+          type: boolean
+        is_confirmed:
+          type: boolean
+    ProposalPatchRequest:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          minLength: 3
+          maxLength: 255
+        amount:
+          type: number
+          format: double
+          not:
+            enum: [0]
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        is_discarded:
+          type: boolean
