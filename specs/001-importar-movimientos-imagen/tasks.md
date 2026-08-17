@@ -40,14 +40,14 @@
 
 **Critical**: No user-story implementation starts before this phase is complete.
 
-- [ ] T008 Create MovementImport and ImportedMovementProposal models in apps/movements/models.py
-- [ ] T009 Generate schema migration for import entities in apps/movements/migrations/0001_movement_import_models.py
-- [ ] T010 [P] Implement model constraints and state transition helpers in apps/movements/models.py
-- [ ] T011 [P] Implement S3 image storage client with private object upload in apps/movements/services/image_storage.py
-- [ ] T012 [P] Implement AWS Textract adapter with safe error mapping in apps/movements/services/textract_client.py
-- [ ] T013 Implement proposal normalization and schema validation service in apps/movements/services/proposal_validation.py
-- [ ] T014 Implement duplicate signature helper for canonical comparison in apps/movements/services/duplicate_guard.py
-- [ ] T015 Implement async import orchestration service and status progression in apps/movements/services/image_import_pipeline.py
+- [x] T008 Create MovementImport and ImportedMovementProposal models in apps/movements/models.py
+- [x] T009 Generate schema migration for import entities in apps/movements/migrations/0001_movement_import_models.py
+- [x] T010 [P] Implement model constraints and state transition helpers in apps/movements/models.py
+- [x] T011 [P] Implement S3 image storage client with private object upload in apps/movements/services/image_storage.py
+- [x] T012 [P] Implement AWS Textract adapter with safe error mapping in apps/movements/services/textract_client.py
+- [x] T013 Implement proposal normalization and schema validation service in apps/movements/services/proposal_validation.py
+- [x] T014 Implement duplicate signature helper for canonical comparison in apps/movements/services/duplicate_guard.py
+- [x] T015 Implement async import orchestration service and status progression in apps/movements/services/image_import_pipeline.py
 
 **Checkpoint**: Foundation ready for independent user story delivery.
 
