@@ -16,9 +16,9 @@
 
 **Purpose**: Ensure implementation starts from a valid approved specification.
 
-- [ ] T000 Validate spec exists in specs/001-importar-movimientos-imagen/spec.md
-- [ ] T001 Confirm spec status is approved in specs/001-importar-movimientos-imagen/spec.md
-- [ ] T002 Link spec and plan references in specs/001-importar-movimientos-imagen/tasks.md
+- [x] T000 Validate spec exists in specs/001-importar-movimientos-imagen/spec.md
+- [X] T001 Confirm spec status is approved in specs/001-importar-movimientos-imagen/spec.md
+- [X] T002 Link spec and plan references in specs/001-importar-movimientos-imagen/tasks.md
 
 ---
 
@@ -26,11 +26,11 @@
 
 **Purpose**: Initialize dependencies and project-level configuration for the feature.
 
-- [ ] T003 Add OCR and test dependencies in requirements.txt
-- [ ] T004 [P] Add import image bucket and retention settings in config/settings/base.py
-- [ ] T005 [P] Add environment variable documentation for AWS and import pipeline in .env.example
-- [ ] T006 Create movement import URL namespace and routes in apps/movements/urls.py
-- [ ] T007 [P] Register movement import URLs in config/urls.py
+- [x] T003 Add OCR and test dependencies in requirements.txt
+- [x] T004 [P] Add import image bucket and retention settings in config/settings/base.py
+- [x] T005 [P] Add environment variable documentation for AWS and import pipeline in .env.example
+- [x] T006 Create movement import URL namespace and routes in apps/movements/urls.py
+- [x] T007 [P] Register movement import URLs in config/urls.py
 
 ---
 
